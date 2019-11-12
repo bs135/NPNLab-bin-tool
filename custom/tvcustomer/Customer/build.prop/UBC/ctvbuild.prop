@@ -1,0 +1,15 @@
+ro.product.model=SmartTV
+ro.product.manufacturer=UBC
+ro.sys.def.volume=35
+ro.sys.fac.volume=80
+persist.sys.enableinstall=1
+ro.product.locale=vi_VN
+persist.sys.language=vi
+persist.sys.country=VN
+persist.sys.timezone=Asia/Bangkok
+persist.sys.HDCPKeyEnable=1
+persist.sys.CIPlusKeyEnable=0
+persist.sys.networkstyle=0
+persist.sys.dst.enable=OPEN
+persist.sys.cfg.drcEntry=1
+ro.sys.flickerLed=1

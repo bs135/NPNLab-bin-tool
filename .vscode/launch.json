@@ -5,25 +5,175 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: pack.py cv358",
+            "name": "Python: CV358HB42_LSC320AN10_UBC_UXBH",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/auto.py",
+            "args": [
+                "CV358HB42",
+                "LSC320AN10",
+                "UBC",
+                "UXBH",
+                "V",
+                "PRE05",
+                "UBC",
+                "500"
+            ]
+        },
+        {
+            "name": "Python: CV358HB42_LSC320AN10_SANCO_UXCN",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/auto.py",
+            "args": [
+                "CV358HB42",
+                "LSC320AN10",
+                "SANCO",
+                "UXCN",
+                "V",
+                "PRE05",
+                "UBC",
+                "500"
+            ]
+        },
+        {
+            "name": "Python: CV358HB42_LSC320AN10_KOLIGHT_UXCN",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/auto.py",
+            "args": [
+                "CV358HB42",
+                "LSC320AN10",
+                "KOLIGHT",
+                "UXCN",
+                "V",
+                "PRE05",
+                "UBC",
+                "500"
+            ]
+        },
+        {
+            "name": "Python: CV358HB42_V400HJ6PE1_UBC_UXBH",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/auto.py",
+            "args": [
+                "CV358HB42",
+                "V400HJ6PE1",
+                "UBC",
+                "UXBH",
+                "V",
+                "PRE05",
+                "UBC",
+                "500"
+            ]
+        },
+        {
+            "name": "Python: CV358HB42_V400HJ6PE1_SANCO_UXCN",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/auto.py",
+            "args": [
+                "CV358HB42",
+                "V400HJ6PE1",
+                "SANCO",
+                "UXCN",
+                "V",
+                "PRE05",
+                "UBC",
+                "500"
+            ]
+        },
+        {
+            "name": "Python: CV358HB42_V400HJ6PE1_KOLIGHT_UXCN",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/auto.py",
+            "args": [
+                "CV358HB42",
+                "V400HJ6PE1",
+                "KOLIGHT",
+                "UXCN",
+                "V",
+                "PRE05",
+                "UBC",
+                "500"
+            ]
+        },
+        {
+            "name": "Python: CV358HB42_HV430FHBN10_UBC_UXBH",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/auto.py",
+            "args": [
+                "CV358HB42",
+                "HV430FHBN10",
+                "UBC",
+                "UXBH",
+                "V",
+                "PRE05",
+                "UBC",
+                "500"
+            ]
+        },
+        {
+            "name": "Python: CV358HB42_HV430FHBN10_SANCO_UXCN",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/auto.py",
+            "args": [
+                "CV358HB42",
+                "HV430FHBN10",
+                "SANCO",
+                "UXCN",
+                "V",
+                "PRE05",
+                "UBC",
+                "500"
+            ]
+        },
+        {
+            "name": "Python: CV358HB42_HV430FHBN10_KOLIGHT_UXCN",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/auto.py",
+            "args": [
+                "CV358HB42",
+                "HV430FHBN10",
+                "KOLIGHT",
+                "UXCN",
+                "V",
+                "PRE05",
+                "UBC",
+                "500"
+            ]
+        },
+        {
+            "name": "Python: pack.py",
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/pack.py",
-            "args" : ["configs/cv358-full.ini"]
+            "args": [
+                "configs/cv358-full.ini"
+            ]
         },
         {
-            "name": "Python: pack.py test358",
+            "name": "Python: pack.py test",
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/pack.py",
-            "args" : ["configs/cv358-enable-uart.ini"]
+            "args": [
+                "configs/cv358-enable-uart.ini"
+            ]
         },
         {
-            "name": "Python: unpack.py cv358",
+            "name": "Python: unpack.py",
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/unpack.py",
-            "args" : ["CtvUpgrage.bin"]
+            "args": [
+                "input/CtvUpgrage.bin"
+            ]
         },
         {
             "name": "Python: Current File",

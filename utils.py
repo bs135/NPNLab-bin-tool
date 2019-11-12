@@ -83,7 +83,7 @@ def createChunkFile(file, destdir, chunksize):
 	#simg2simg system.simg systemchunk 157286400
 	print("system file name {}".format(file))
 	print("dest dir {}".format(destdir))
-	os.system("simg2simg {} {} {}".format(file, os.path.join(destdir,"systemChunk"), chunksize))
+	os.system("./bin/linux64/simg2simg {} {} {}".format(file, os.path.join(destdir,"systemChunk"), chunksize))
 	strPath = os.path.join(destdir,"systemChunk*")
 	print(strPath)
 	chunks = sorted(glob.glob(strPath))

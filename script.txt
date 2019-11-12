@@ -1,0 +1,45 @@
+python3 unpack.py ./input/CtvUpgrade.bin
+
+
+mkdir unpacked/fs
+
+
+#########
+sudo mount unpacked/system_ex.img unpacked/fs
+
+sudo gedit unpacked/fs/usr/keylayout/Generic.kl 
+sudo gedit unpacked/fs/usr/keylayout/Vendor_046d_Product_b501.kl
+sudo gedit unpacked/fs/usr/keylayout/Vendor_1949_Product_0401.kl
+
+sudo umount unpacked/fs
+./bin/linux32/img2simg unpacked/system_ex.img unpacked/system.simg
+
+#########
+sudo mount unpacked/vendor_ex.img unpacked/fs
+sudo rm -rf unpacked/fs/app/NPNLauncher_1.210.4.2105/
+sudo mkdir unpacked/fs/app/NPNLauncher
+sudo cp /media/npn/BS/CV358/ultraview_launcher_ubc_logo_2108.apk unpacked/fs/app/NPNLauncher/NPNLauncher.apk
+sudo rm -rf unpacked/fs/app/STV_Play_10.0.2.1034/
+sudo mkdir unpacked/fs/app/STV_CabON
+sudo cp /media/npn/BS/CV358/stvversion_ubc_20190917.apk unpacked/fs/app/STV_CabON/STV_CabON.apk
+sudo mkdir unpacked/fs/app/Memory
+sudo cp /media/npn/BS/CV358/Memory.apk unpacked/fs/app/Memory/Memory.apk
+
+sudo rm -rf unpacked/fs/app/Apt/
+
+sudo umount unpacked/fs
+./bin/linux32/img2simg unpacked/vendor_ex.img unpacked/vendor.simg
+
+#########
+sudo mount unpacked/tvconfig.img unpacked/fs
+
+#########
+python3 pack.py configs/cv358-full.ini
+
+#########
+cp CtvUpgrade.bin /media/npn/BS/CtvUpgrade.bin
+grep -iRl "217" unpacked/fs/
+
+
+
+

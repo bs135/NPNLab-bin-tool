@@ -41,6 +41,14 @@ import struct
 import utils
 import shutil
 
+DEBUG = False
+
+def DB(m):
+	if(DEBUG):
+		print(m)
+
+DB("[i] Packing...")
+
 tmpDir = 'tmp'
 headerPart = os.path.join(tmpDir, '~header')
 binPart = os.path.join(tmpDir, '~bin') 
@@ -48,8 +56,8 @@ footerPart = os.path.join(tmpDir, '~footer')
 
 # Command line args
 if len(sys.argv) == 1: 
-	print ("Usage: pack.py <config file>")
-	print ("Example: pack.py configs/letv-x355pro.ini")
+	DB("Usage: pack.py <config file>")
+	DB("Example: pack.py configs/letv-x355pro.ini")
 	quit()
 
 configFile = sys.argv[1]
@@ -85,21 +93,21 @@ headerScriptSuffix = config.get('HeaderScript', 'Suffix', raw = True)
 # Parts
 parts = list(filter(lambda s: s.startswith('part/'), config.sections()))
 
-print("\n")
-print ("[i] Date: {}".format(time.strftime("%d/%m/%Y %H:%M:%S")))
-print ("[i] Firmware file name: {}".format(firmwareFileName))
-print ("[i] Project folder: {}".format(projectFolder))
-print ("[i] Use hex values: {}".format(useHexValuesPrefix))
-print ("[i] Script firmware filename: {}".format(SCRIPT_FIRMWARE_FILE_NAME))
-print ("[i] DRAM_BUF_ADDR: {}".format(DRAM_BUF_ADDR))
-print ("[i] MAGIC_FOOTER: {}".format(MAGIC_FOOTER))
-print ("[i] HEADER_SIZE: {}".format(HEADER_SIZE))
+DB("\n")
+DB("[i] Date: {}".format(time.strftime("%d/%m/%Y %H:%M:%S")))
+DB("[i] Firmware file name: {}".format(firmwareFileName))
+DB("[i] Project folder: {}".format(projectFolder))
+DB("[i] Use hex values: {}".format(useHexValuesPrefix))
+DB("[i] Script firmware filename: {}".format(SCRIPT_FIRMWARE_FILE_NAME))
+DB("[i] DRAM_BUF_ADDR: {}".format(DRAM_BUF_ADDR))
+DB("[i] MAGIC_FOOTER: {}".format(MAGIC_FOOTER))
+DB("[i] HEADER_SIZE: {}".format(HEADER_SIZE))
 
 # Create working directory
-print ('[i] Create working directory ...')
+DB('[i] Create working directory ...')
 utils.createDirectory(tmpDir)
 
-print ('[i] Generating header and bin ...')
+DB('[i] Generating header and bin ...')
 # Initial empty bin to store merged parts
 open(binPart, 'w').close()
 
@@ -134,19 +142,19 @@ with open(headerPart, 'wb') as header:
 		memoryOffset = utils.getConfigValue(part, 'memoryOffset', 'NOT_SET')
 		emptySkip = utils.str2bool(utils.getConfigValue(part, 'emptySkip', 'True'))
 
-		print("\n")
-		print("[i] Processing partition")
-		print("[i]      Name: {}".format(name))
-		print("[i]      Create: {}".format(create))
-		print("[i]      Size: {}".format(size))
-		print("[i]      Chunk Size: {}".format(chunkSize))
-		print("[i]      Erase: {}".format(erase))
-		print("[i]      Type: {}".format(type))
-		print("[i]      Image: {}".format(imageFile))
-		print("[i]      LZO: {}".format(lzo))
-		print("[i]      Simg: {}".format(simg))
-		print("[i]      Memory Offset: {}".format(memoryOffset))
-		print("[i]      Empty Skip: {}".format(emptySkip))
+		DB("\n")
+		DB("[i] Processing partition")
+		DB("[i]      Name: {}".format(name))
+		DB("[i]      Create: {}".format(create))
+		DB("[i]      Size: {}".format(size))
+		DB("[i]      Chunk Size: {}".format(chunkSize))
+		DB("[i]      Erase: {}".format(erase))
+		DB("[i]      Type: {}".format(type))
+		DB("[i]      Image: {}".format(imageFile))
+		DB("[i]      LZO: {}".format(lzo))
+		DB("[i]      Simg: {}".format(simg))
+		DB("[i]      Memory Offset: {}".format(memoryOffset))
+		DB("[i]      Empty Skip: {}".format(emptySkip))
 
 		emptySkip = utils.bool2int(emptySkip) # 0 - False, 1 - True
 
@@ -163,12 +171,12 @@ with open(headerPart, 'wb') as header:
 			
 			if (chunkSize > 0):
 				if(simg == False):
-					print ('[i] Splitting ...')
+					DB('[i] Splitting ...')
 					chunks = utils.splitFile(imageFile, tmpDir, chunksize = chunkSize)
 				else:
 					#create chunk files
 					#simg2simg system.simg systemchunk 157286400
-					print ('[i] Splitting ...')
+					DB('[i] Splitting ...')
 					chunks = utils.createChunkFile(imageFile, tmpDir, chunksize = chunkSize)
 					
 			else:
@@ -176,11 +184,11 @@ with open(headerPart, 'wb') as header:
 				chunks = utils.splitFile(imageFile, tmpDir, chunksize = 0)
 
 			for index, inputChunk in enumerate(chunks):
-				print ('[i] Processing chunk: {}'.format(inputChunk))
+				DB('[i] Processing chunk: {}'.format(inputChunk))
 				(name1, ext1) = os.path.splitext(inputChunk)
 				if lzo:
 					outputChunk = name1 + '.lzo'
-					print ('[i]     LZO: {} -> {}'.format(inputChunk, outputChunk))
+					DB('[i]     LZO: {} -> {}'.format(inputChunk, outputChunk))
 					utils.lzo(inputChunk, outputChunk)
 				else:
 					outputChunk = inputChunk
@@ -193,10 +201,10 @@ with open(headerPart, 'wb') as header:
 				if (index == 0 and erase): 
 					directive.erase_p(name) 
 
-				print ('[i]     Align chunk')
+				DB('[i]     Align chunk')
 				utils.alignFile(outputChunk)
 
-				print ('[i]     Append: {} -> {}'.format(outputChunk, binPart))
+				DB('[i]     Append: {} -> {}'.format(outputChunk, binPart))
 				utils.appendFile(outputChunk, binPart)
 
 				if lzo:
@@ -208,7 +216,7 @@ with open(headerPart, 'wb') as header:
 					#if len(chunks) == 1:
 					directive.sparse_write_mmc(name, size, DRAM_BUF_ADDR, emptySkip)
 					#else:
-					#	print ('[!] UNSUPPORTED: sparse_write mmc more than 1 time')
+					#	DB('[!] UNSUPPORTED: sparse_write mmc more than 1 time')
 					#	quit()
 				else:
 					if len(chunks) == 1:
@@ -220,7 +228,7 @@ with open(headerPart, 'wb') as header:
 						# filepartload 50000000 MstarUpgrade.bin d604000 c800000
 						# mmc write.p.continue 50000000 system 64000 c800000 1
 						# Why offset is 64000 but not c800000 ???
-						print ('[!] UNSUPPORTED: mmc write.p.continue')
+						DB('[!] UNSUPPORTED: mmc write.p.continue')
 						quit()
 
 		if (type == 'secureInfo'):
@@ -232,10 +240,10 @@ with open(headerPart, 'wb') as header:
 			offset = "{:02X}".format(os.path.getsize(binPart) + HEADER_SIZE)
 			directive.filepartload(SCRIPT_FIRMWARE_FILE_NAME, offset, size)
 
-			print ('[i]     Align')
+			DB('[i]     Align')
 			utils.alignFile(outputChunk)
 
-			print ('[i]     Append: {} -> {}'.format(outputChunk, binPart))
+			DB('[i]     Append: {} -> {}'.format(outputChunk, binPart))
 			utils.appendFile(outputChunk, binPart)
 			directive.store_secure_info(name)
 
@@ -248,10 +256,10 @@ with open(headerPart, 'wb') as header:
 			offset = "{:02X}".format(os.path.getsize(binPart) + HEADER_SIZE)
 			directive.filepartload(SCRIPT_FIRMWARE_FILE_NAME, offset, size)
 
-			print ('[i]     Align')
+			DB('[i]     Align')
 			utils.alignFile(outputChunk)
 
-			print ('[i]     Append: {} -> {}'.format(outputChunk, binPart))
+			DB('[i]     Append: {} -> {}'.format(outputChunk, binPart))
 			utils.appendFile(outputChunk, binPart)
 			directive.store_nuttx_config(name)
 
@@ -264,10 +272,10 @@ with open(headerPart, 'wb') as header:
 			offset = "{:02X}".format(os.path.getsize(binPart) + HEADER_SIZE)
 			directive.filepartload(SCRIPT_FIRMWARE_FILE_NAME, offset, size)
 
-			print ('[i]     Align')
+			DB('[i]     Align')
 			utils.alignFile(outputChunk)
 
-			print ('[i]     Append: {} -> {}'.format(outputChunk, binPart))
+			DB('[i]     Append: {} -> {}'.format(outputChunk, binPart))
 			utils.appendFile(outputChunk, binPart)
 			directive.write_boot(size, DRAM_BUF_ADDR, emptySkip)
 			
@@ -280,10 +288,10 @@ with open(headerPart, 'wb') as header:
 			offset = "{:02X}".format(os.path.getsize(binPart) + HEADER_SIZE)
 			directive.filepartload(SCRIPT_FIRMWARE_FILE_NAME, offset, size, memoryOffset=memoryOffset)
 			
-			print ('[i]     Align')
+			DB('[i]     Align')
 			utils.alignFile(outputChunk)
 			
-			print ('[i]     Append: {} -> {}'.format(outputChunk, binPart))
+			DB('[i]     Append: {} -> {}'.format(outputChunk, binPart))
 			utils.appendFile(outputChunk, binPart)
 		
 		
@@ -296,10 +304,10 @@ with open(headerPart, 'wb') as header:
 	header.write('% <- this is end of script symbol\n'.encode())
 	header.flush()
 
-	print ('[i] Fill header script to 16KB')
+	DB('[i] Fill header script to 16KB')
 	header.write( ('\xff' * (HEADER_SIZE - os.path.getsize(headerPart))).encode(encoding='iso-8859-1') ) 
 
-print ('[i] Generating footer ...')
+DB('[i] Generating footer ...')
 
 if (USE_XGIMI_CRC2):
 	# NB XGIMI uses HEADER+BIN+MAGIC+HEADER_CRC to calculate crc2
@@ -312,20 +320,20 @@ if (USE_XGIMI_CRC2):
 	utils.appendFile(headerPart, mergedPart)
 	utils.appendFile(binPart, mergedPart)
 	with open(mergedPart, 'ab') as part:
-		print ('[i]     Magic: {}'.format(MAGIC_FOOTER))
+		DB('[i]     Magic: {}'.format(MAGIC_FOOTER))
 		part.write(MAGIC_FOOTER.encode())
-		print ('[i]     Header CRC: 0x{:02X}'.format(headerCRC))
+		DB('[i]     Header CRC: 0x{:02X}'.format(headerCRC))
 		part.write(struct.pack('L', headerCRC))
 	
 	# Step #2 Calculate CRC2
 	mergedCRC = utils.crc32(mergedPart)
 	with open(footerPart, 'wb') as footer:
-		print ('[i]     Merged CRC: 0x{:02X}'.format(mergedCRC))
+		DB('[i]     Merged CRC: 0x{:02X}'.format(mergedCRC))
 		footer.write(struct.pack('L', mergedCRC))
-		print ('[i]     First 16 bytes of header: {}'.format(header16bytes))
+		DB('[i]     First 16 bytes of header: {}'.format(header16bytes))
 		footer.write(header16bytes)
 
-	print ('[i] Merging parts ...')
+	DB('[i] Merging parts ...')
 	open(firmwareFileName, 'w').close()
 	utils.appendFile(mergedPart, firmwareFileName)
 	utils.appendFile(footerPart, firmwareFileName)
@@ -334,20 +342,20 @@ else:
 	binCRC = utils.crc32(binPart)
 	header16bytes = utils.loadPart(headerPart, 0, 16)
 	with open(footerPart, 'wb') as footer:
-		print ('[i]     Magic: {}'.format(MAGIC_FOOTER))
+		DB('[i]     Magic: {}'.format(MAGIC_FOOTER))
 		footer.write(MAGIC_FOOTER.encode())
-		print ('[i]     Header CRC: 0x{:02X}'.format(headerCRC))
+		DB('[i]     Header CRC: 0x{:02X}'.format(headerCRC))
 		footer.write(struct.pack('I', headerCRC)) # struct.pack('L', data) <- returns byte swapped data
-		print ('[i]     Bin CRC: 0x{:02X}'.format(binCRC))
+		DB('[i]     Bin CRC: 0x{:02X}'.format(binCRC))
 		footer.write(struct.pack('I', binCRC))
-		print ('[i]     First 16 bytes of header: {}'.format(header16bytes))
+		DB('[i]     First 16 bytes of header: {}'.format(header16bytes))
 		footer.write(header16bytes)
 
-	print ('[i] Merging header, bin, footer ...')
+	DB('[i] Merging header, bin, footer ...')
 	open(firmwareFileName, 'w').close()
 	utils.appendFile(headerPart, firmwareFileName)
 	utils.appendFile(binPart, firmwareFileName)
 	utils.appendFile(footerPart, firmwareFileName)
 
 shutil.rmtree(tmpDir)
-print ('[i] Done')
+DB('[i] Done')
