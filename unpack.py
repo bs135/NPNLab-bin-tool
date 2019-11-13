@@ -13,7 +13,7 @@ def DB(m):
 	if(DEBUG):
 		print(m)
 
-DB("[i] Unpacking...")
+print("[i] Unpacking...")
 
 # Vars
 headerScript = ""

@@ -7,13 +7,11 @@ import string
 import subprocess
 import configparser
 import re
-#import winsound
 import bhelper
 import cpfile
 import bdef
 import utils
 from time import localtime, strftime
-#from msvcrt import getch
 from tkinter import Tk,Toplevel,Menu,Listbox,messagebox,filedialog,StringVar,END,X,Y,LEFT,RIGHT,BOTH,RIDGE,FLAT,BOTTOM,EXTENDED,SINGLE,PhotoImage,Scrollbar,LabelFrame,Text
 from tkinter.ttk import Style,Frame,Label,Combobox,Entry,Button,Notebook,Labelframe
 

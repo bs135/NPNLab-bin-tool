@@ -47,7 +47,7 @@ def DB(m):
 	if(DEBUG):
 		print(m)
 
-DB("[i] Packing...")
+print("[i] Packing...")
 
 tmpDir = 'tmp'
 headerPart = os.path.join(tmpDir, '~header')
