@@ -406,7 +406,7 @@ key 484   B                 FUNCTION
 
 key 580   APP_SWITCH
 # key 582   VOICE_ASSIST
-key 582   SEARCH
+# key 582   SEARCH
 
 # Keys defined by HID usages
 key usage 0x0c006F BRIGHTNESS_UP

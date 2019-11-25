@@ -236,7 +236,7 @@ key 213   MUSIC
 # key 214 "KEY_QUESTION"
 key 215   ENVELOPE
 # key 216 "KEY_CHAT"
-key 217   SEARCH
+# key 217   SEARCH
 # key 218 "KEY_CONNECT"
 # key 219 "KEY_FINANCE"
 # key 220 "KEY_SPORT"

@@ -13,8 +13,10 @@ if len(sys.argv) <= 4:
 	print ("Usage: auto.py")
 	quit()
 
-#P75338V621G_LSC320AN10_ANDROID_UXCN
-#P75338V621G_HV430FHBN10_SANCO_UXCN_N_PRE05_UBC_213B_20191028_150300
+DEBUG_GET_ORIGIN_CUSTOM = False
+
+#P75338V621G_LSC320AN10_ANDROID_UXCN_N_PRE05
+#P75338V621G_HV430FHBN10_SANCO_UXCN_N_PRE05_UKB_213B_20191028_150300
 #1           2           3     4    5 6     7   8
 BOARD=sys.argv[1]
 PANEL=sys.argv[2]
@@ -25,22 +27,25 @@ REMOTE=sys.argv[6]
 KEYBOARD=sys.argv[7]
 VERSION=sys.argv[8]
 
-TVSIZE = "32"
-if(PANEL == "LSC320AN10" ): TVSIZE = "32"
-if(PANEL == "LC390TA2A"  ): TVSIZE = "39"
-if(PANEL == "V400HJ6PE1" ): TVSIZE = "40"
-if(PANEL == "HV430FHBN10"): TVSIZE = "43"
+TVSIZE = ""
+RESOLUTION = "1080"
+if(PANEL == "LSC320AN10"    ):     TVSIZE = "32"
+if(PANEL == "LC390TA2A"     ):     TVSIZE = "39"
+if(PANEL == "V400HJ6PE1"    ):     TVSIZE = "40"
+if(PANEL == "V400HJ6PE1DM"  ):     TVSIZE = "40"
+if(PANEL == "V400HJ6PE1EK"  ):     TVSIZE = "40"
+if(PANEL == "HV430FHBN10"   ):     TVSIZE = "43"
 
 MDIR = os.path.dirname(os.path.abspath(__file__))
 
-print("[i] BOARD="+BOARD)       #CV358HB42
-print("[i] PANEL="+PANEL)       #LSC320AN10
-print("[i] BRAND="+BRAND)       #UBC
-print("[i] LAUNCHER="+LAUNCHER) #UXBH
-print("[i] VOICE="+VOICE)       #V
-print("[i] REMOTE="+REMOTE)     #PRE05
-print("[i] KEYBOARD="+KEYBOARD) #UKB
-print("[i] VERSION="+VERSION)   #500
+print("[i] BOARD="      +BOARD)     #CV358HB42
+print("[i] PANEL="      +PANEL)     #LSC320AN10
+print("[i] BRAND="      +BRAND)     #UBC
+print("[i] LAUNCHER="   +LAUNCHER)  #UXBH
+print("[i] VOICE="      +VOICE)     #V
+print("[i] REMOTE="     +REMOTE)    #PRE05
+print("[i] KEYBOARD="   +KEYBOARD)  #UKB
+print("[i] VERSION="    +VERSION)   #500
 
 print("MDIR="+MDIR)
 
@@ -54,6 +59,8 @@ def mdir(_mdir):
     _mdir = _mdir.replace("[REMOTE]", REMOTE)
     _mdir = _mdir.replace("[KEYBOARD]", KEYBOARD)
     _mdir = _mdir.replace("[VERSION]", VERSION)
+    _mdir = _mdir.replace("[TVSIZE]", TVSIZE)
+    _mdir = _mdir.replace("[RESOLUTION]", RESOLUTION)
     return _mdir
 
 def runCmd(cmd):
@@ -69,6 +76,7 @@ def remove_unuse_char(text):
 
 def zipdir(path, ziph):
     for root, dirs, files in os.walk(path):
+        print("[i] zipdir: " + dirs)
         for file in files:
             ziph.write(os.path.join(root, file), os.path.join(root, file).replace(path,""))
 
@@ -121,7 +129,8 @@ def mod_system():
     runCmd("sudo cp -f [MDIR]/custom/system/build.prop/[BRAND]/build.prop [MDIR]/fs/build.prop")
     
     #runCmd("sudo cp -f [MDIR]/custom/bootanimation/bootanimation.zip [MDIR]/fs/media/bootanimation.zip")
-    runCmd("sudo cp -f [MDIR]/custom/bootanimation_V500/[BRAND]/bootanimation.zip [MDIR]/fs/media/bootanimation.zip")
+    #runCmd("sudo cp -f [MDIR]/custom/bootanimation_V500/[BRAND]/bootanimation.zip [MDIR]/fs/media/bootanimation.zip")
+    runCmd("sudo cp -f [MDIR]/custom/bootanimation/[BRAND]_[LAUNCHER]/[VOICE][VERSION]/[RESOLUTION]/bootanimation.zip [MDIR]/fs/media/bootanimation.zip")
     
     runCmd("sudo rm -rf [MDIR]/fs/preinstall/app")
     runCmd("sudo cp -rf [MDIR]/custom/system/preinstall/app [MDIR]/fs/preinstall")
@@ -154,8 +163,8 @@ def mod_vendor():
     content = rfile.read()
     rfile.close()
     content = re.sub('ro.product.board=.*', "ro.product.board=CV6A358_" + PANEL, content, re.M|re.I)
-    content = re.sub('ro.sys.launcher=.*', "ro.sys.launcher="+BRAND+"TV", content, re.M|re.I)
-    content = re.sub('ro.sys.sub_client_os=.*', "ro.sys.sub_client_os="+BRAND+"TV", content, re.M|re.I)
+    #content = re.sub('ro.sys.launcher=.*', "ro.sys.launcher="+BRAND+"TV", content, re.M|re.I)
+    #content = re.sub('ro.sys.sub_client_os=.*', "ro.sys.sub_client_os="+BRAND+"TV", content, re.M|re.I)
     wfile = open(_file_name, "w", newline="\r\n") 
     wfile.write(content)
     wfile.close()
@@ -178,6 +187,11 @@ def mod_tvconfig():
     print("[i] mod_tvconfig()")
     #mount
     runCmd("sudo mount [MDIR]/unpacked/tvconfig.img [MDIR]/fs")
+
+    if DEBUG_GET_ORIGIN_CUSTOM:
+        runCmd("sudo cp -f [MDIR]/fs/config/panel/FullHD_CMO216_H1L01.ini [MDIR]/custom/tvconfig/config/panel/[PANEL]/FullHD_CMO216_H1L01.ini")
+        runCmd("sudo cp -f [MDIR]/fs/config/model/Customer_1.ini [MDIR]/custom/tvconfig/config/model/[PANEL]/Customer_1.ini")
+
     #mod
     runCmd("sudo cp -f [MDIR]/custom/tvconfig/config/panel/[PANEL]/FullHD_CMO216_H1L01.ini [MDIR]/fs/config/panel/FullHD_CMO216_H1L01.ini")
     runCmd("sudo cp -f [MDIR]/custom/tvconfig/config/model/[PANEL]/Customer_1.ini [MDIR]/fs/config/model/Customer_1.ini")
@@ -194,9 +208,9 @@ def mod_tvcustomer():
 
     ##################
     #vendor/ctvbuild.prop
-    runCmd("sudo cp -f [MDIR]/fs/Customer/ [MDIR]/custom/tvcustomer/Customer/build.prop/[BRAND]/ctvbuild.prop")
+    runCmd("sudo cp -f [MDIR]/fs/Customer/ctvbuild.prop [MDIR]/custom/tvcustomer/Customer/build.prop/[BRAND]/ctvbuild.prop")
     _file_name = mdir("[MDIR]/custom/tvcustomer/Customer/build.prop/[BRAND]/ctvbuild.prop")
-    rfile = open(_file_name, "r") 
+    rfile = open(_file_name, "r")
     content = rfile.read()
     rfile.close()
     content = re.sub('ro.product.manufacturer=.*', "ro.product.manufacturer="+BRAND, content, re.M|re.I)
@@ -243,18 +257,18 @@ def cp_output():
     ################
     # Copy to USB
     #runCmd("cp [MDIR]/CtvUpgrade.bin /media/nguyen/KSD/CtvUpgrade.bin")
-    runCmd("cp [MDIR]/CtvUpgrade.bin /media/nguyen/BSUSB/CtvUpgrade.bin")
+    #runCmd("cp [MDIR]/CtvUpgrade.bin /media/nguyen/BSUSB/CtvUpgrade.bin")
     #runCmd("cp [MDIR]/CtvUpgrade.bin /media/nguyen/KINGSTON/CtvUpgrade.bin")
     ################
 
-    runCmd("mkdir -p [MDIR]/output/" + firmwareDir + "/" + firmware)
-    runCmd("mv [MDIR]/CtvUpgrade.bin [MDIR]/output/" + firmwareDir + "/" + firmware + "/CtvUpgrade.bin")
-
+    outDir = "[MDIR]/output/" + firmwareDir + "/" + firmware
+    runCmd("mkdir -p " + outDir)
+    runCmd("mv [MDIR]/CtvUpgrade.bin " + outDir + "/CtvUpgrade.bin")
+    runCmd("nautilus " + outDir)
 #####################
 # Build Proccess
 #####################
 print("[MDIR]: " + MDIR)
-#runCmd("sudo -s")
 
 if(not os.path.exists(mdir("[MDIR]/fs/"))):
     runCmd("mkdir [MDIR]/fs")
@@ -266,7 +280,7 @@ mod_system()
 mod_vendor()
 mod_tvconfig()
 mod_tvcustomer()
-mod_tvdatabase()
+#mod_tvdatabase()
 pack()
 cp_output()
 

@@ -13,7 +13,7 @@ CREATE TABLE [tbl_SoftwareVersion] (
 [MovementVer] TEXT NULL,
 [OrderID] TEXT NULL
 );
-INSERT INTO "tbl_SoftwareVersion" VALUES(1,'UBC-CV358H_B42-V033','SmartTV','SmartTV','LSC320AN10','V033','EUROPE','XXXX','80000001');
+INSERT INTO "tbl_SoftwareVersion" VALUES(1,'VNN-CV358H_B42-V033','SmartTV','SmartTV','LSC320AN10','V033','EUROPE','XXXX','80000001');
 
 DROP TABLE IF EXISTS "tbl_Configuration";
 CREATE TABLE [tbl_Configuration] (

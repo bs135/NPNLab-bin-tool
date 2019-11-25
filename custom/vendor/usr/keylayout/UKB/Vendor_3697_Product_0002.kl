@@ -42,6 +42,6 @@ key 49   VOLUME_UP
 key 38   MENU
 key 50   CHANNEL_DOWN
 key 48   TV_INPUT
-key 35   TV_INPUT
+#key 35   ENTER
 key 36   CHANNEL_UP
 key 37   VOLUME_DOWN
