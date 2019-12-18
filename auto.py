@@ -264,7 +264,7 @@ def cp_output():
     outDir = "[MDIR]/output/" + firmwareDir + "/" + firmware
     runCmd("mkdir -p " + outDir)
     runCmd("mv [MDIR]/CtvUpgrade.bin " + outDir + "/CtvUpgrade.bin")
-    runCmd("nautilus " + outDir)
+    #runCmd("nautilus " + outDir)
 #####################
 # Build Proccess
 #####################
