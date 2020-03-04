@@ -363,6 +363,38 @@
             ]
         },
         {
+            "name": "CV358HB42_HV430FHBN10_UBC_UXBH_V_PRE05_CVT",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/auto.py",
+            "args": [
+                "CV358HB42",
+                "HV430FHBN10",
+                "UBC",
+                "UXBH",
+                "V",
+                "PRE05",
+                "CVT",
+                "504"
+            ]
+        },
+        {
+            "name": "CV358HB42_HV430FHBN10_UBC_UXBH_N_PRE05_CVT",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/auto.py",
+            "args": [
+                "CV358HB42",
+                "HV430FHBN10",
+                "UBC",
+                "UXBH",
+                "N",
+                "PRE05",
+                "CVT",
+                "504"
+            ]
+        },
+        {
             "name": "CV358HB42_HV430FHBN10_SANCO_UXCN_V_PRE05_UKB",
             "type": "python",
             "request": "launch",
@@ -391,6 +423,38 @@
                 "N",
                 "PRE05",
                 "UKB",
+                "504"
+            ]
+        },
+        {
+            "name": "CV358HB42_HV430FHBN10_SANCO_UXCN_V_PRE05_CVT",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/auto.py",
+            "args": [
+                "CV358HB42",
+                "HV430FHBN10",
+                "SANCO",
+                "UXCN",
+                "V",
+                "PRE05",
+                "CVT",
+                "504"
+            ]
+        },
+        {
+            "name": "CV358HB42_HV430FHBN10_SANCO_UXCN_N_PRE05_CVT",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/auto.py",
+            "args": [
+                "CV358HB42",
+                "HV430FHBN10",
+                "SANCO",
+                "UXCN",
+                "N",
+                "PRE05",
+                "CVT",
                 "504"
             ]
         },
