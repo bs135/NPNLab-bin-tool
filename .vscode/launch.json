@@ -5,10 +5,16 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "GUI",
+            "name": "### GUI ###",
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/gui.py"
+        },
+        {
+            "name": "### LSC320AN10 ###",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/nothing.py"
         },
         {
             "name": "CV358HB42_LSC320AN10_UBC_UXBH_V_PRE05_UKB",
@@ -40,6 +46,22 @@
                 "PRE05",
                 "UKB",
                 "504"
+            ]
+        },
+        {
+            "name": "CV358HB42_LSC320AN10_UBC_UXBH_V_PRE05_UKB_TEST",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/auto.py",
+            "args": [
+                "CV358HB42",
+                "LSC320AN10",
+                "UBC",
+                "UXBH",
+                "V",
+                "PRE05",
+                "UKB",
+                "TEST"
             ]
         },
         {
@@ -91,6 +113,12 @@
             ]
         },
         {
+            "name": "### LC390TA2A ###",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/nothing.py"
+        },
+        {
             "name": "CV358HB42_LC390TA2A_UBC_UXBH_V_PRE05_UKB",
             "type": "python",
             "request": "launch",
@@ -120,6 +148,22 @@
                 "PRE05",
                 "UKB",
                 "504"
+            ]
+        },
+        {
+            "name": "CV358HB42_LC390TA2A_UBC_UXBH_V_PRE05_UKB_TEST",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/auto.py",
+            "args": [
+                "CV358HB42",
+                "LC390TA2A",
+                "UBC",
+                "UXBH",
+                "V",
+                "PRE05",
+                "UKB",
+                "TEST"
             ]
         },
         {
@@ -171,6 +215,12 @@
             ]
         },
         {
+            "name": "### V400HJ6PE1 ###",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/nothing.py"
+        },
+        {
             "name": "CV358HB42_V400HJ6PE1_UBC_UXBH_V_PRE05_CVT",
             "type": "python",
             "request": "launch",
@@ -200,6 +250,22 @@
                 "PRE05",
                 "CVT",
                 "504"
+            ]
+        },
+        {
+            "name": "CV358HB42_V400HJ6PE1_UBC_UXBH_V_PRE05_CVT_TEST",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/auto.py",
+            "args": [
+                "CV358HB42",
+                "V400HJ6PE1",
+                "UBC",
+                "UXBH",
+                "V",
+                "PRE05",
+                "CVT",
+                "TEST"
             ]
         },
         {
@@ -249,6 +315,12 @@
                 "CVT",
                 "504"
             ]
+        },
+        {
+            "name": "### V400HJ6PE1EK ###",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/nothing.py"
         },
         {
             "name": "CV358HB42_V400HJ6PE1EK_UBC_UXBH_V_PRE05_CVT",
@@ -331,6 +403,12 @@
             ]
         },
         {
+            "name": "### HV430FHBN10 ###",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/nothing.py"
+        },
+        {
             "name": "CV358HB42_HV430FHBN10_UBC_UXBH_V_PRE05_UKB",
             "type": "python",
             "request": "launch",
@@ -360,6 +438,22 @@
                 "PRE05",
                 "UKB",
                 "504"
+            ]
+        },
+        {
+            "name": "CV358HB42_HV430FHBN10_UBC_UXBH_V_PRE05_UKB_TEST",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/auto.py",
+            "args": [
+                "CV358HB42",
+                "HV430FHBN10",
+                "UBC",
+                "UXBH",
+                "V",
+                "PRE05",
+                "UKB",
+                "TEST"
             ]
         },
         {
