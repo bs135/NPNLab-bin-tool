@@ -261,7 +261,8 @@ def cp_output():
     #runCmd("cp [MDIR]/CtvUpgrade.bin /media/nguyen/KINGSTON/CtvUpgrade.bin")
     ################
 
-    outDir = "[MDIR]/output/" + firmwareDir + "/" + firmware
+    #outDir = "[MDIR]/output/" + firmwareDir + "/" + firmware
+    outDir = "[MDIR]/output/[BOARD]_[VERSION]/" + firmwareDir + "/" + firmware
     runCmd("mkdir -p " + outDir)
     runCmd("mv [MDIR]/CtvUpgrade.bin " + outDir + "/CtvUpgrade.bin")
     #runCmd("nautilus " + outDir)
